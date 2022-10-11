@@ -77,7 +77,7 @@ The API is mostly for implementors. However, the main API may be useful for non-
 
 ```js
 import { transform } from 'https://code4fukui.github.io/css-to-react-native-es/cssToReactNative.js'
-// or const transform = require('css-to-react-native').default;
+// or const transform = (await import('https://code4fukui.github.io/css-to-react-native-es/cssToReactNative.js')).default;
 
 transform([
   ['font', 'bold 14px/16px "Helvetica"'],

@@ -1,4 +1,4 @@
-# css-to-react-native
+# css-to-react-native-es
 
 Converts CSS text to a React Native stylesheet object.
 

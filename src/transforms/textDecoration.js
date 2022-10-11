@@ -1,4 +1,4 @@
-import { regExpToken, SPACE, LINE, COLOR } from '../tokenTypes'
+import { regExpToken, SPACE, LINE, COLOR } from '../tokenTypes.js'
 
 const STYLE = regExpToken(/^(solid|double|dotted|dashed)$/)
 

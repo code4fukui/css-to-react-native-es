@@ -5,7 +5,7 @@ import {
   COLOR,
   SPACE,
   NONE,
-} from '../tokenTypes'
+} from '../tokenTypes.js'
 
 export const directionFactory = ({
   types = [LENGTH, UNSUPPORTED_LENGTH_UNIT, PERCENT],

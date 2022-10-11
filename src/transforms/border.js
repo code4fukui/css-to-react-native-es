@@ -5,7 +5,7 @@ import {
   LENGTH,
   UNSUPPORTED_LENGTH_UNIT,
   SPACE,
-} from '../tokenTypes'
+} from '../tokenTypes.js'
 
 const BORDER_STYLE = regExpToken(/^(solid|dashed|dotted)$/)
 

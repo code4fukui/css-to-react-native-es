@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
-import parse from 'postcss-value-parser'
-import camelizeStyleName from 'camelize'
-import transforms from './transforms/index'
-import devPropertiesWithoutUnitsRegExp from './devPropertiesWithoutUnitsRegExp'
-import TokenStream from './TokenStream'
+import { ValueParser as parse } from 'https://code4fukui.github.io/postcss-value-parser-es/ValueParser.js'
+import { camelize as camelizeStyleName } from 'https://code4fukui.github.io/camelize-es/camelize.js'
+import transforms from './transforms/index.js'
+import devPropertiesWithoutUnitsRegExp from './devPropertiesWithoutUnitsRegExp.js'
+import TokenStream from './TokenStream.js'
 
 // Note if this is wrong, you'll need to change tokenTypes.js too
 const numberOrLengthRe = /^([+-]?(?:\d*\.)?\d+(?:e[+-]?\d+)?)(?:px)?$/i
@@ -14,6 +14,7 @@ const undefinedRe = /^undefined$/i
 
 // Undocumented export
 export const transformRawValue = (propName, value) => {
+  /*
   if (process.env.NODE_ENV !== 'production') {
     const needsUnit = !devPropertiesWithoutUnitsRegExp.test(propName)
     const isNumberWithoutUnit = numberOnlyRe.test(value)
@@ -26,6 +27,7 @@ export const transformRawValue = (propName, value) => {
       console.warn(`Expected style "${propName}: ${value}" to be unitless`)
     }
   }
+  */
 
   const numberMatch = value.match(numberOrLengthRe)
   if (numberMatch !== null) return Number(numberMatch[1])
@@ -48,6 +50,8 @@ const baseTransformShorthandValue = (propName, value) => {
   return transforms[propName](tokenStream)
 }
 
+const transformShorthandValue = baseTransformShorthandValue
+/*
 const transformShorthandValue =
   process.env.NODE_ENV === 'production'
     ? baseTransformShorthandValue
@@ -58,6 +62,7 @@ const transformShorthandValue =
           throw new Error(`Failed to parse declaration "${propName}: ${value}"`)
         }
       }
+*/
 
 export const getStylesForProperty = (propName, inputValue, allowShorthand) => {
   const isRawValue = allowShorthand === false || !(propName in transforms)

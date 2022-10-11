@@ -1,4 +1,4 @@
-import { regExpToken, SPACE } from '../tokenTypes'
+import { regExpToken, SPACE } from '../tokenTypes.js'
 
 const FLEX_WRAP = regExpToken(/(nowrap|wrap|wrap-reverse)/)
 const FLEX_DIRECTION = regExpToken(/(row|row-reverse|column|column-reverse)/)

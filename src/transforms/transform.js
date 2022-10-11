@@ -1,4 +1,4 @@
-import { SPACE, COMMA, LENGTH, NUMBER, ANGLE } from '../tokenTypes'
+import { SPACE, COMMA, LENGTH, NUMBER, ANGLE } from '../tokenTypes.js'
 
 const oneOfType = tokenType => functionStream => {
   const value = functionStream.expect(tokenType)

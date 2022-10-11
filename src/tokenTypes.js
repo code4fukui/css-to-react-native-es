@@ -1,5 +1,6 @@
-import { stringify } from 'postcss-value-parser'
-import cssColorKeywords from 'css-color-keywords'
+import { ValueParser } from 'https://code4fukui.github.io/postcss-value-parser-es/ValueParser.js'
+import { cssColorKeywords } from 'https://code4fukui.github.io/css-color-keywords-es/cssColorKeywords.js'
+const stringify = ValueParser.stringify;
 
 const matchString = node => {
   if (node.type !== 'string') return null

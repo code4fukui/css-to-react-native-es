@@ -1,11 +1,11 @@
-import parseFontFamily from './fontFamily'
+import parseFontFamily from './fontFamily.js'
 import {
   regExpToken,
   SPACE,
   LENGTH,
   UNSUPPORTED_LENGTH_UNIT,
   SLASH,
-} from '../tokenTypes'
+} from '../tokenTypes.js'
 
 const NORMAL = regExpToken(/^(normal)$/)
 const STYLE = regExpToken(/^(italic)$/)

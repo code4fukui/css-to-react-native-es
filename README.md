@@ -1,4 +1,4 @@
-# css-to-react-native
+# css-to-react-native-es
 
 Converts CSS text to a React Native stylesheet object.
 
@@ -76,7 +76,7 @@ There is also support for the `box-shadow` shorthand, and this converts into `sh
 The API is mostly for implementors. However, the main API may be useful for non-implementors. The main API is an array of `[property, value]` tuples.
 
 ```js
-import transform from 'css-to-react-native';
+import { transform } from 'https://code4fukui.github.io/css-to-react-native-es/cssToReactNative.js'
 // or const transform = require('css-to-react-native').default;
 
 transform([
@@ -93,7 +93,7 @@ For implementors, there is also a few extra APIs available.
 These are for specific use-cases, and most people should just be using the API above.
 
 ```js
-import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
+import { getPropertyName, getStylesForProperty } from 'https://code4fukui.github.io/css-to-react-native-es/cssToReactNative.js';
 
 getPropertyName('border-width'); // => 'borderWidth'
 getStylesForProperty('borderWidth', '1px 0px 2px 0px'); // => { borderTopWidth: 1, ... }

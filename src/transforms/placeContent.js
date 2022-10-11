@@ -1,4 +1,4 @@
-import { regExpToken, SPACE } from '../tokenTypes'
+import { regExpToken, SPACE } from '../tokenTypes.js'
 
 const ALIGN_CONTENT = regExpToken(
   /(flex-(?:start|end)|center|stretch|space-(?:between|around))/

@@ -1,4 +1,4 @@
-import { SPACE, LINE } from '../tokenTypes'
+import { SPACE, LINE } from '../tokenTypes.js'
 
 export default tokenStream => {
   const lines = []

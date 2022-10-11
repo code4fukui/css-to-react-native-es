@@ -1,4 +1,4 @@
-import { SPACE, IDENT, STRING } from '../tokenTypes'
+import { SPACE, IDENT, STRING } from '../tokenTypes.js'
 
 export default tokenStream => {
   let fontFamily

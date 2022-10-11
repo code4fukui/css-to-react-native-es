@@ -6,7 +6,7 @@ import {
   UNSUPPORTED_LENGTH_UNIT,
   PERCENT,
   SPACE,
-} from '../tokenTypes'
+} from '../tokenTypes.js'
 
 const defaultFlexGrow = 1
 const defaultFlexShrink = 1

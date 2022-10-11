@@ -1,5 +1,6 @@
 let propertiesWithoutUnits
-if (process.env.NODE_ENV !== 'production') {
+//if (process.env.NODE_ENV !== 'production') {
+if (false) {
   propertiesWithoutUnits = [
     'aspectRatio',
     'elevation',

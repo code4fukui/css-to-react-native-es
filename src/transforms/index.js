@@ -6,19 +6,19 @@ import {
   UNSUPPORTED_LENGTH_UNIT,
   PERCENT,
   AUTO,
-} from '../tokenTypes'
-import border from './border'
-import boxShadow from './boxShadow'
-import flex from './flex'
-import flexFlow from './flexFlow'
-import font from './font'
-import fontFamily from './fontFamily'
-import placeContent from './placeContent'
-import textDecoration from './textDecoration'
-import textDecorationLine from './textDecorationLine'
-import textShadow from './textShadow'
-import transform from './transform'
-import { directionFactory, parseShadowOffset } from './util'
+} from '../tokenTypes.js'
+import border from './border.js'
+import boxShadow from './boxShadow.js'
+import flex from './flex.js'
+import flexFlow from './flexFlow.js'
+import font from './font.js'
+import fontFamily from './fontFamily.js'
+import placeContent from './placeContent.js'
+import textDecoration from './textDecoration.js'
+import textDecorationLine from './textDecorationLine.js'
+import textShadow from './textShadow.js'
+import transform from './transform.js'
+import { directionFactory, parseShadowOffset } from './util.js'
 
 const background = tokenStream => ({
   backgroundColor: tokenStream.expect(COLOR),

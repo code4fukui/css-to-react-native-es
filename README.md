@@ -1,54 +1,32 @@
 # css-to-react-native-es
 
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
+
 Converts CSS text to a React Native stylesheet object.
 
-[Try it here](https://csstox.surge.sh)
+## Features
 
-```css
-font-size: 18px;
-line-height: 24px;
-color: red;
-```
+-   Converts CSS property names from kebab-case to camelCase (e.g., `background-color` to `backgroundColor`).
+-   Converts numeric pixel (`px`) values to numbers, while preserving other units (e.g., `%`, `em`, `deg`) as strings.
+-   Expands CSS shorthand properties like `margin`, `padding`, `font`, and `border` into their longhand React Native equivalents.
+-   Parses complex values for properties like `transform`, `text-shadow`, and `box-shadow`.
+-   Supports a wide range of CSS color formats, keywords, and values.
 
-```js
-{
-  fontSize: 18,
-  lineHeight: 24,
-  color: 'red',
-}
-```
+## Usage
 
-Converts all number-like values to numbers, and string-like to strings.
-
-Automatically converts indirect values to their React Native equivalents.
-
-```css
-text-shadow-offset: 10px 5px;
-font-variant: small-caps;
-transform: translate(10px, 5px) scale(5);
-```
+The primary export is the `transform` function, which takes an array of `[property, value]` tuples and returns a React Native style object.
 
 ```js
-{
-  textShadowOffset: { width: 10, height: 5 },
-  fontVariant: ['small-caps'],
-  // Fixes backwards transform order
-  transform: [
-    { translateY: 5 },
-    { translateX: 10 },
-    { scale: 5 },
-  ]
-}
-```
+import { transform } from 'https://code4fukui.github.io/css-to-react-native-es/cssToReactNative.js'
 
-Also allows shorthand values.
+const styles = transform([
+  ['font', 'bold 14px/16px "Helvetica"'],
+  ['margin', '5px 7px 2px'],
+  ['border-left-width', '5px'],
+]);
 
-```css
-font: bold 14px/16px "Helvetica";
-margin: 5px 7px 2px;
-```
-
-```js
+/*
+styles is now:
 {
   fontFamily: 'Helvetica',
   fontSize: 14,
@@ -60,56 +38,83 @@ margin: 5px 7px 2px;
   marginRight: 7,
   marginBottom: 2,
   marginLeft: 7,
+  borderLeftWidth: 5
 }
+*/
 ```
 
-Shorthands will only accept values that are supported in React, so `background` will only accept a colour, `backgroundColor`
+## API
 
-There is also support for the `box-shadow` shorthand, and this converts into `shadow-` properties. Note that these only work on iOS.
+This library exports three main functions.
 
-#### Shorthand Notes
+### `transform(styleTuples, [shorthandBlacklist])`
 
-`border{Top,Right,Bottom,Left}` shorthands are not supported, because `borderStyle` cannot be applied to individual border sides.
+The main function that converts an array of CSS rules into a style object.
 
-# API
-
-The API is mostly for implementors. However, the main API may be useful for non-implementors. The main API is an array of `[property, value]` tuples.
+-   `styleTuples: Array<[string, string]>`: An array of property-value pairs.
+-   `shorthandBlacklist?: string[]`: An optional array of camelCased properties to disable shorthand expansion for.
 
 ```js
-import { transform } from 'https://code4fukui.github.io/css-to-react-native-es/cssToReactNative.js'
-// or const transform = (await import('https://code4fukui.github.io/css-to-react-native-es/cssToReactNative.js')).default;
-
-transform([
-  ['font', 'bold 14px/16px "Helvetica"'],
-  ['margin', '5px 7px 2px'],
-  ['border-left-width', '5px'],
-]); // => { fontFamily: 'Helvetica', ... }
+// Disable shorthand expansion for 'borderRadius'
+const styles = transform(
+  [['border-radius', '50px']],
+  ['borderRadius']
+);
+// => { borderRadius: 50 }
 ```
 
-We don't provide a way to get these style tuples in this library, so you'll need to do that yourself. I expect most people will use postCSS or another CSS parser. You should try avoid getting these with `string.split`, as that has a lot of edge cases (colons and semi-colons apearing in comments etc.)
+### `getStylesForProperty(name, value, [allowShorthand])`
 
-For implementors, there is also a few extra APIs available.
+Converts a single CSS property and value. Useful for more granular control.
 
-These are for specific use-cases, and most people should just be using the API above.
+-   `name: string`: The camelCased property name.
+-   `value: string`: The CSS value string.
+-   `allowShorthand?: boolean`: Set to `false` to disable shorthand expansion. Defaults to `true`.
 
 ```js
-import { getPropertyName, getStylesForProperty } from 'https://code4fukui.github.io/css-to-react-native-es/cssToReactNative.js';
+import { getStylesForProperty } from 'https://code4fukui.github.io/css-to-react-native-es/cssToReactNative.js'
 
-getPropertyName('border-width'); // => 'borderWidth'
-getStylesForProperty('borderWidth', '1px 0px 2px 0px'); // => { borderTopWidth: 1, ... }
+const borderStyles = getStylesForProperty('borderWidth', '1px 0px 2px 0px');
+// => { borderTopWidth: 1, borderRightWidth: 0, borderBottomWidth: 2, borderLeftWidth: 0 }
 ```
 
-Should you wish to opt-out of transforming certain shorthands, an array of property names in camelCase can be passed as a second argument to `transform`.
+### `getPropertyName(name)`
+
+Converts a CSS property name from kebab-case to camelCase.
+
+-   `name: string`: The kebab-cased CSS property name.
 
 ```js
-transform([['border-radius', '50px']], ['borderRadius']);
-// { borderRadius: 50 } rather than { borderTopLeft: ... }
+import { getPropertyName } from 'https://code4fukui.github.io/css-to-react-native-es/cssToReactNative.js'
+
+const propName = getPropertyName('border-width');
+// => 'borderWidth'
 ```
 
-This can also be done by passing a third argument, `false` to `getStylesForProperty`.
+## Supported Shorthand Properties
+
+-   `background`
+-   `border`
+-   `borderColor`
+-   `borderRadius`
+-   `borderWidth`
+-   `boxShadow`
+-   `flex`
+-   `flexFlow`
+-   `font`
+-   `fontFamily`
+-   `fontVariant`
+-   `fontWeight`
+-   `margin`
+-   `padding`
+-   `placeContent`
+-   `shadowOffset`
+-   `textDecoration`
+-   `textDecorationLine`
+-   `textShadow`
+-   `textShadowOffset`
+-   `transform`
 
 ## License
 
-Licensed under the MIT License, Copyright © 2019 Krister Kari, Jacob Parker, and Maximilian Stoiber.
-
-See [LICENSE.md](./LICENSE.md) for more information.
+MIT License — see [LICENSE.md](./LICENSE.md).
